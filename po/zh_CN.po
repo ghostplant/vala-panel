@@ -360,7 +360,7 @@ msgstr "添加/删除组件"
 
 #: ../lib/panel-menus.ui:25
 msgid "Panel Settings..."
-msgstr "面板设置..."
+msgstr "面板设置"
 
 #: ../lib/panel-menus.ui:30
 msgid "New Panel"
@@ -396,11 +396,11 @@ msgstr "高级属性"
 
 #: ../lib/pref.ui:138
 msgid "Count as dock:"
-msgstr ""
+msgstr "作为停靠栏："
 
 #: ../lib/pref.ui:150
 msgid "Reserve space:"
-msgstr ""
+msgstr "占据空间："
 
 #: ../lib/pref.ui:186
 msgid "Placement properties"

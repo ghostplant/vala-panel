@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name[ru]=Vala Panel
+Name=Vala Panel
+GenericName[zh_CN]=桌面面板
+GenericName=Desktop Panel
+Categories=System;Monitor;
+Keywords[ru]=panel;launcher;menu;tasklist
+Keywords=panel;launcher;menu;tasklist
+Exec=vala-panel
+Icon=gnome-panel
