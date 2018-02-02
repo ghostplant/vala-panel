@@ -1,11 +1,11 @@
 [core-version-1]
-units = ['toplevel1','sep1','menu','launcher','sep2','wcm','sep3','pgr','sep4','tlist','cpu','xembed','clock']
+units=['launcher', 'menubar1', 'tasklist1', 'clock', 'sep1', 'sep2', 'sep3', 'xembed', 'sep4', 'sep5', 'wcm', 'toplevel1']
 
 [global]
-is-dark=false
+is-dark=true
 is-custom=false
-logout-command='openbox --exit'
-shutdown-command='systemctl shutdown -h now'
+logout-command='mate-session-save --logout-dialog'
+shutdown-command='mate-session-save --shutdown-dialog'
 
 [toplevel1]
 object-type='toplevel'
@@ -13,94 +13,106 @@ strut=true
 monitor=-1
 background-type='image'
 panel-gravity='north-left'
-height=26
+height=28
 icon-size=24
 auto-hide=false
 enable-font-color=true
 font-color='rgb(255,255,255)'
-background-file='@DATADIR@/images/background.png'
-
+use-background-color=false
+background-color='rgb(136,138,133)'
+use-foreground-color=false
+foreground-color='rgb(0,0,0)'
+use-background-file=false
+autohide=false
+dock=true
 
 [sep1]
 toplevel-id='toplevel1'
 plugin-type='separator'
-size=2
-position=0
+size=8
+position=3
 show-separator=false
+object-type='applet'
 
 [menu]
-toplevel-id='toplevel1'
-plugin-type='menumodel'
-position=1
-icon-name='start-here-symbolic'
 menu-name=nothing
-is-internal-menu=true
-is-system-menu=true
-is-menu-bar=false
 
 [launcher]
 toplevel-id='toplevel1'
 plugin-type='launchbar'
-launch-buttons=['pcmanfm.desktop', 'gnome-terminal.desktop', 'firefox.desktop']
+launch-buttons=['mate-terminal.desktop', 'pluma.desktop', 'chromium-browser.desktop']
 position=2
+object-type='applet'
 
 [sep2]
 toplevel-id='toplevel1'
 plugin-type='separator'
 size=4
 show-separator=false
-position=3
-
-[wcm]
-toplevel-id='toplevel1'
-plugin-type='wincmd'
-position=4
-left-button-command='iconify'
-middle-button-command='shade'
-image='gnome-window-manager'
-toggle-iconify-and-shade=true
+position=5
+object-type='applet'
+is-expanded=false
 
 [sep3]
 toplevel-id='toplevel1'
 plugin-type='separator'
 show-separator=false
-size=4
-position=5
-
-[pgr]
-toplevel-id='toplevel1'
-plugin-type='pager'
-position=6
-
-[sep4]
-toplevel-id='toplevel1'
-plugin-type='separator'
-size=4
+size=8
 position=7
-
-[tlist]
-toplevel-id='toplevel1'
-plugin-type='tasklist'
-is-expanded=true
-position=8
-grouped-tasks=true
-all-desktops=false
-
-[cpu]
-toplevel-id='toplevel1'
-plugin-type='cpu'
-position=9
+object-type='applet'
+is-expanded=false
 
 [xembed]
 toplevel-id='toplevel1'
 plugin-type='xembed'
-position=10
+position=6
+object-type='applet'
 
 [clock]
 toplevel-id='toplevel1'
 plugin-type='clock'
-clock-format='%R'
-tooltip-format='%A %x'
+clock-format='%A %R'
+tooltip-format='%x %A %R'
 bold-font=false
-position=11
+position=8
+object-type='applet'
 
+[sep4]
+toplevel-id='toplevel1'
+plugin-type='separator'
+size=8
+position=9
+object-type='applet'
+show-separator=false
+
+[wcm]
+toplevel-id='toplevel1'
+plugin-type='wincmd'
+position=10
+left-button-command='iconify'
+icon='gnome-desktop-config'
+toggle-iconify-and-shade=true
+object-type='applet'
+
+[tasklist1]
+object-type='applet'
+plugin-type='tasklist-xfce'
+toplevel-id='toplevel1'
+position=4
+is-expanded=true
+
+[sep5]
+object-type='applet'
+plugin-type='separator'
+toplevel-id='toplevel1'
+position=1
+size=8
+is-expanded=false
+show-separator=false
+
+[menubar1]
+object-type='applet'
+plugin-type='menumodel'
+toplevel-id='toplevel1'
+position=0
+is-menu-bar=false
