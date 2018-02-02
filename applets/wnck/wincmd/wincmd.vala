@@ -30,7 +30,6 @@ public class WincmdApplet : AppletPlugin, Peas.ExtensionBase
 public class Wincmd: Applet
 {
     private const string KEY_LEFT = "left-button-command";
-    private const string KEY_MIDDLE = "middle-button-command";
     private const string KEY_TOGGLE = "toggle-iconify-and-shade";
     private const string KEY_ICON = "icon";
     internal enum Command
@@ -43,8 +42,6 @@ public class Wincmd: Applet
     private Image image;
     private bool toggle_state;
     internal Command left_button_command
-    {get; set;}
-    internal Command middle_button_command
     {get; set;}
     internal bool toggle_iconify_and_shade
     {get; set;}
@@ -59,7 +56,6 @@ public class Wincmd: Applet
         button = new Button();
         image = new Image();
         settings.bind(KEY_LEFT,this,KEY_LEFT,SettingsBindFlags.GET);
-        settings.bind(KEY_MIDDLE,this,KEY_MIDDLE,SettingsBindFlags.GET);
         settings.bind(KEY_TOGGLE,this,KEY_TOGGLE,SettingsBindFlags.GET);
         settings.bind(KEY_ICON,this,KEY_ICON,SettingsBindFlags.GET);
         Icon gicon = new ThemedIcon.with_default_fallbacks("preferences-desktop-wallpaper-symbolic");
@@ -153,7 +149,6 @@ public class Wincmd: Applet
     {
         if (e.button == 2)
         {
-            execute_command(middle_button_command);
             return true;
         }
         return false;
