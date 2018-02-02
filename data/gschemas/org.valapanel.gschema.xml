@@ -10,7 +10,7 @@
       <default>""</default>
     </key>
     <key name="run-command" type="s">
-      <default>"vala-panel-runner"</default>
+      <default>"x-terminal-emulator"</default>
     </key>
     <key name="logout-command" type="s">
       <default>"gnome-logout"</default>

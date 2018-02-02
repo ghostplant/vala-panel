@@ -20,7 +20,6 @@
 ​​  <launch type="desktop-id">org.valapanel.application.desktop</launch>
 ​  <provides>
     <binary>vala-panel</binary>
-    <binary>vala-panel-runner</binary>
 ​    <library>libvalapanel.so.0</library>
 ​  </provides>
 ​  <releases>
