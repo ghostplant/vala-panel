@@ -6,10 +6,15 @@
 
 %:
 	rm -rf debian/tmp
-	# mv configure configure.ac
 	dh $@ $(DHFLAGS)
 
 override_dh_install:
 	mv debian/vala-panel2 debian/tmp
 	dh_install --list-missing
+
+override_dh_auto_configure:
+	# git submodule init
+	# git submodule update
+	[ -e configure.ac ] || mv configure configure.ac
+	dh_auto_configure $(DHFLAGS)
 
