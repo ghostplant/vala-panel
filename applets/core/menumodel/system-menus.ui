@@ -76,7 +76,7 @@
           <attribute name="x-valapanel-dnd-source" type="b">true</attribute>
         </item>
     </section>
-    <section id="network-mounts">
+    <!-- <section id="network-mounts">
         <item>
           <attribute name="label" translatable="yes">Network</attribute>
           <attribute name="icon">network-workgroup</attribute>
@@ -91,7 +91,7 @@
           <attribute name="target">nautilus-connect-server.desktop</attribute>
           <attribute name="x-valapanel-dnd-source" type="b">true</attribute>
         </item>
-    </section>
+    </section> -->
     <section id="recent-section">
         <submenu id="recent-menu">
           <attribute name="label" translatable="yes">Recent documents</attribute>
