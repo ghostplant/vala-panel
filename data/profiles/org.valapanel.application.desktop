@@ -7,5 +7,6 @@ GenericName=Desktop Panel
 Categories=System;Monitor;
 Keywords[ru]=panel;launcher;menu;tasklist
 Keywords=panel;launcher;menu;tasklist
+NoDisplay=true
 Exec=vala-panel
 Icon=gnome-panel
