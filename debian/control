@@ -15,7 +15,7 @@ Homepage: https://launchpad.net/~ghostplant
 Package: vala-panel2
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends},
-Conflicts: vala-panel
+Conflicts: vala-panel, vala-panel-common, vala-panel-plugins-base, vala-panel-plugins-wnck
 Depends: libgtk-3-0
 Description: Desktop panel written in Vala and GTK+ 3
  Vala Panel is a rewrite of SimplePanel. It is a GTK+ 3 desktop panel
