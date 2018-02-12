@@ -25,6 +25,7 @@ foreground-color='rgb(0,0,0)'
 use-background-file=false
 autohide=false
 dock=true
+use-toolbar-appearance=true
 
 [sep1]
 toplevel-id='toplevel1'
