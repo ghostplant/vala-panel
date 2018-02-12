@@ -19,7 +19,7 @@
       <default>"gnome-logout"</default>
     </key>
     <key name="terminal-command" type="s">
-      <default>"sakura"</default>
+      <default>"gnome-terminal"</default>
     </key>
     <key name="confirm-panel-remove" type="b">
       <default>true</default>

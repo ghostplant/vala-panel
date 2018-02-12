@@ -6,6 +6,8 @@ is-dark=true
 is-custom=false
 logout-command='mate-session-save --logout-dialog'
 shutdown-command='mate-session-save --shutdown-dialog'
+terminal-command='mate-terminal'
+run-command='mate-system-monitor -r &'
 
 [toplevel1]
 object-type='toplevel'
