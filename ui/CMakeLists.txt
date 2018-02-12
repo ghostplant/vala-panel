@@ -1,40 +1,27 @@
 add_subdirectory(applets-new)
 add_subdirectory(c-lib)
-include(GLibHelpers)
 set(ENUM_FILES
         panel-platform.h
-        generic-config-dialog.h
         settings-manager.c
         )
 add_glib_enumtypes(ENUMSC ENUMSH vala-panel-enums ${ENUM_FILES})
-option(ENABLE_NEW_INTERFACE "Enable new interface function" OFF)
-if (ENABLE_NEW_INTERFACE)
-    set(NEW_DEFINE -D NEW)
-endif()
 set(LIBVALAPANEL_HEADERS
     client.h
     server.h
     applet-widget-api.h
     applet-widget.h
-    misc-gtk.h
-    menu-maker.h
-    generic-config-dialog.h
     settings-manager.h
     panel-platform.h
     toplevel.h
     toplevel-config.h
     ${ENUMSH})
 set(LIBVALAPANEL_C_SOURCES
-    misc-gtk.c
-    menu-maker.c
     toplevel-config.c
-    generic-config-dialog.c
     settings-manager.c
     panel-platform.c
     applet-widget.c
     toplevel.c
     ${ENUMSC})
-INCLUDE(GResource)
 set(VALA_FILES
 	configurator.vala
 	applet-holder.vala
@@ -56,7 +43,6 @@ GENERATE_HEADER
     ${APPNAME}-compat
 )
 
-add_definitions(-DG_SETTINGS_ENABLE_BACKEND)
 glib_compile_resources(GLIB_RESOURCES_LIB
     source
         libvalapanel.gresource.xml
@@ -67,11 +53,6 @@ glib_compile_resources(GLIB_RESOURCES_LIB
 #####
 
 # Build library for plugins and application
-set (LIBS ${CORE_LIBRARIES} -lm)
-set (LIB_PATHS ${CORE_LIBRARY_DIRS})
-INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/util; ${CMAKE_SOURCE_DIR}/ui)
-link_directories (${LIB_PATHS})
-
 set (LIB_FILES ${VALA_C})
 add_custom_target(vala-ide-lib SOURCES ${VALA_FILES} ${CMAKE_CURRENT_SOURCE_DIR}/${APPNAME}.vapi)
 add_library (${LIBNAME} SHARED
@@ -82,8 +63,8 @@ add_library (${LIBNAME} SHARED
     definitions.h
 )
 
-target_link_libraries (${LIBNAME} ${LIBS} util util-gtk)
-target_include_directories(${LIBNAME} PRIVATE ${CORE_INCLUDE_DIRS} ${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR})
+target_link_libraries (${LIBNAME} PEAS::PEAS util-gtk)
+target_include_directories(${LIBNAME} PRIVATE ${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${CMAKE_SOURCE_DIR}/util; ${CMAKE_SOURCE_DIR}/ui ${CMAKE_SOURCE_DIR}/util/gtk)
 
 set_target_properties (${LIBNAME} PROPERTIES
     VERSION ${VERSION}

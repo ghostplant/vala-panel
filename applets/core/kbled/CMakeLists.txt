@@ -26,7 +26,7 @@ set (LIBS ${CORE_LIBRARIES} -lm)
 set (LIB_PATHS ${CORE_LIBRARY_DIRS})
 link_directories (${LIB_PATHS})
 include_directories(${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR})
-INCLUDE(GResource)
+INCLUDE(GLibProgramHandlers)
 glib_compile_resources(RESOURCES
     source
 	${PLUGIN_NAME}.gresource.xml
@@ -37,7 +37,7 @@ add_library (${PLUGIN_NAME} MODULE
     ${RESOURCES}
 )
 
-target_link_libraries (${PLUGIN_NAME} ${LIBS} valapanel)
+target_link_libraries (${PLUGIN_NAME} valapanel)
 add_custom_target(vala-ide-${PLUGIN_NAME} SOURCES ${VALA_FILES})
 
 # Install plugin stuffs

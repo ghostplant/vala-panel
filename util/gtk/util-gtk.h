@@ -20,7 +20,10 @@
 #define UTIL_GTK_H
 
 #include "css.h"
+#include "generic-config-dialog.h"
 #include "launcher-gtk.h"
+#include "menu-maker.h"
+#include "misc-gtk.h"
 #include "util.h"
 
 #endif

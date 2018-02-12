@@ -24,11 +24,9 @@
 G_BEGIN_DECLS
 
 #include <applet-widget-api.h>
-#include <generic-config-dialog.h>
-#include <launcher-gtk.h>
-#include <menu-maker.h>
-#include <misc-gtk.h>
-#include <util.h>
+#include <definitions.h>
+#include <util-gtk.h>
+#include <vala-panel-compat.h>
 
 G_END_DECLS
 

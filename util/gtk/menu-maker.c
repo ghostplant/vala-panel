@@ -113,6 +113,32 @@ void append_all_sections(GMenu *menu1, GMenuModel *menu2)
 			g_menu_append_section(menu1, label, link);
 	}
 }
+static void copy_attribute(gpointer key, gpointer value, gpointer user_data)
+{
+	GMenuItem *item = G_MENU_ITEM(user_data);
+	g_menu_item_set_attribute_value(item, (const char *)key, (GVariant *)value);
+}
+static void copy_link(gpointer key, gpointer value, gpointer user_data)
+{
+	GMenuItem *item = G_MENU_ITEM(user_data);
+	g_menu_item_set_link(item, (const char *)key, G_MENU_MODEL(value));
+}
+void copy_model_items(GMenu *dst, GMenuModel *src)
+{
+	g_menu_remove_all(dst);
+	for (int i = 0; i < g_menu_model_get_n_items(src); i++)
+	{
+		GHashTable *attributes = NULL;
+		GHashTable *links      = NULL;
+		G_MENU_MODEL_GET_CLASS(src)->get_item_attributes(src, i, &attributes);
+		G_MENU_MODEL_GET_CLASS(src)->get_item_links(src, i, &links);
+		g_autoptr(GMenuItem) item = g_menu_item_new(NULL, NULL);
+		g_hash_table_foreach(attributes, copy_attribute, item);
+		g_hash_table_foreach(links, copy_link, item);
+		g_menu_append_item(dst, item);
+	}
+}
+
 static void apply_menu_dnd(GtkMenuItem *item, GMenuModel *section, int model_item)
 {
 	// Make the this widget a DnD source.
@@ -144,18 +170,20 @@ void apply_menu_properties(GList *w, GMenuModel *menu)
 		GMenuModel *link_menu         = NULL;
 		while (g_menu_link_iter_get_next(iter, &str, &link_menu))
 		{
-			has_section = has_section || !(strcmp(str, G_MENU_LINK_SECTION));
-			has_submenu = has_submenu || !(strcmp(str, G_MENU_LINK_SUBMENU));
-			if (menuw != NULL && has_submenu)
+			bool is_section = !(strcmp(str, G_MENU_LINK_SECTION));
+			bool is_submenu = !(strcmp(str, G_MENU_LINK_SUBMENU));
+			if (menuw != NULL && is_submenu)
 				apply_menu_properties(gtk_container_get_children(
 				                          GTK_CONTAINER(menuw)),
 				                      link_menu);
-			else if (has_section)
+			if (is_section)
 			{
 				jumplen += ((uint)g_menu_model_get_n_items(link_menu) - 1);
 				apply_menu_properties(l, link_menu);
 			}
 			g_object_unref(link_menu);
+			has_section = has_section || is_section;
+			has_submenu = has_submenu || is_submenu;
 		}
 		GVariant *val = NULL;
 		g_autoptr(GMenuAttributeIter) attr_iter =
@@ -174,7 +202,8 @@ void apply_menu_properties(GList *w, GMenuModel *menu)
 				apply_menu_dnd(GTK_MENU_ITEM(l->data), menu, i);
 			g_variant_unref(val);
 		}
-		l = g_list_nth(l, jumplen);
+		l       = g_list_nth(l, jumplen);
+		jumplen = 1;
 		if (l == NULL)
 			break;
 	}

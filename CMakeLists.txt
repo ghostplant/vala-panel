@@ -79,9 +79,7 @@ configure_file (${CMAKE_SOURCE_DIR}/${APPNAME}.pc.cmake ${CMAKE_BINARY_DIR}/${AP
 add_definitions(-DGETTEXT_PACKAGE=\"${GETTEXT_PACKAGE}\")
 
 # Vala
-find_package (Vala REQUIRED)
-include (ValaVersion)
-ensure_vala_version ("0.34" MINIMUM)
+find_package (Vala 0.34 REQUIRED)
 include (ValaPrecompile)
 
 add_definitions(-DVALA_VERSION="${VALA_SHORTVER}")
@@ -96,28 +94,14 @@ add_definitions(-Wall -Wextra
                 -Wno-sign-compare
                 ) #Vala often forgot cast to GtkWidget or gpointer
 find_package (PkgConfig)
-find_package(GLib REQUIRED COMPONENTS goblect gio gio-unix gmodule gthread VERSION 2.50)
-find_package(GTK3 REQUIRED VERSION 3.22)
+find_package(GLIB2 2.50 REQUIRED COMPONENTS GOBJECT GIO GIO_UNIX GMODULE GTHREAD CODEGEN MKENUMS GENMARSHAL COMPILE_SCHEMAS COMPILE_RESOURCES)
+include(GLibProgramHandlers)
+find_package(GTK 3.22 REQUIRED COMPONENTS GDK X11 WAYLAND)
+find_package(PEAS 1.14 REQUIRED COMPONENTS PEAS)
 
-pkg_check_modules (GLIB_OLD QUIET
-  gio-2.0<=2.52
-)
-
-pkg_check_modules (PEAS
-  libpeas-1.0>=1.14)
-
-set(CORE_LIBRARIES ${GLIB_LIBRARIES} ${GLIB_GIO_LIBRARIES} ${GLIB_GOBJECT_LIBRARIES} ${GLIB_GMODULE_LIBRARIES} ${GLIB_GTHREAD_LIBRARIES} ${GTK3_LIBRARIES} ${PEAS_LIBRARIES})
-set(CORE_INCLUDE_DIRS ${GLIB_INCLUDE_DIRS} ${GTK_INCLUDE_DIRS} ${PEAS_INCLUDE_DIRS})
-
-pkg_check_modules (CORE REQUIRED QUIET
-  gtk+-3.0>=3.22
-  glib-2.0>=2.50
-  gio-2.0>=2.50
-  gio-unix-2.0>=2.50
-  gthread-2.0>=2.50
-  libpeas-1.0>=1.14
-  libpeas-gtk-1.0>=1.14
-  gmodule-2.0>=2.50)
+if(GLIB2_VERSION VERSION_LESS 2.52)
+    set(GLIB_OLD_FOUND TRUE)
+endif()
 
 set(CORE_PACKAGES
   gtk+-3.0
@@ -130,20 +114,6 @@ set(CORE_PACKAGES
   gio-addons-2.0
   posix)
 
-set(PACKGAGE_CFLAGS ${CORE_CFLAGS})
-set(PACKAGE_LINK_DIRS ${CORE_LIBRARY_DIRS})
-set(PACKAGE_LIBRARIES ${CORE_LIBRARIES})
-
-add_definitions (${CORE_CFLAGS})
-link_libraries (${CORE_LIBRARIES})
-link_directories (${CORE_LIBRARY_DIRS})
-
-
-# Some include paths
-include_directories(${CMAKE_BINARY_DIR}/lib)
-
-#set requred variables
-set(TARGET_GLIB ${GLIB_VERSION_MAJOR}.${GLIB_VERSION_MINOR})
 
 ADD_SUBDIRECTORY(po)
 ADD_SUBDIRECTORY(util)

@@ -15,8 +15,8 @@ namespace XEmbed
         {
             Object(uint_window: window);
             this.set_has_window(true);
-            this.notify["icon-size"].connect(()=>{
-                this.queue_resize();
+            this.notify.connect((pspec)=>{
+                    this.queue_resize();
             });
             //GTK 3.22 temporary dirty hack (we do not know about updates of plug)
             Timeout.add(250,()=>{
