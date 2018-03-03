@@ -62,6 +62,7 @@ static void activate_panel_preferences(GSimpleAction *simple, GVariant *param, g
 static void activate_preferences(GSimpleAction *simple, GVariant *param, gpointer data);
 static void activate_about(GSimpleAction *simple, GVariant *param, gpointer data);
 static void activate_run(GSimpleAction *simple, GVariant *param, gpointer data);
+static void activate_lock(GSimpleAction *simple, GVariant *param, gpointer data);
 static void activate_logout(GSimpleAction *simple, GVariant *param, gpointer data);
 static void activate_shutdown(GSimpleAction *simple, GVariant *param, gpointer data);
 static void activate_exit(GSimpleAction *simple, GVariant *param, gpointer data);
@@ -80,6 +81,7 @@ static const GActionEntry vala_panel_application_app_entries[9] = {
 	{ "menu", activate_menu, NULL, NULL, NULL, { 0 } },
 	{ "run", activate_run, NULL, NULL, NULL, { 0 } },
 	{ "logout", activate_logout, NULL, NULL, NULL, { 0 } },
+	{ "lock", activate_lock, NULL, NULL, NULL, { 0 } },
 	{ "shutdown", activate_shutdown, NULL, NULL, NULL, { 0 } },
 	{ "quit", activate_exit, NULL, NULL, NULL, { 0 } },
 	{ "restart", activate_restart, NULL, NULL, NULL, { 0 } },
@@ -563,6 +565,12 @@ static void activate_run(GSimpleAction *simple, GVariant *param, gpointer data)
 	// g_autoptr(GVariant) par   = g_variant_new_string(app->run_command);
 	// activate_menu_launch_command(NULL, par, app);
 	system(app->run_command);
+}
+
+static void activate_lock(GSimpleAction *simple, GVariant *param, gpointer data)
+{
+	ValaPanelApplication *app = VALA_PANEL_APPLICATION(data);
+	system("xscreensaver-command -lock || dm-tool lock");
 }
 
 static void activate_logout(GSimpleAction *simple, GVariant *param, gpointer data)
