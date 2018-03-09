@@ -1,0 +1,19 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+DHFLAGS=--buildsystem=cmake
+
+# Uncomment this to turn on verbose mode.
+export DH_VERBOSE=1
+
+%:
+	rm -rf debian/tmp
+	dh $@ $(DHFLAGS)
+
+override_dh_install:
+	mv debian/vala-panel2 debian/tmp
+	dh_install --list-missing
+
+override_dh_auto_configure:
+	dh_auto_configure $(DHFLAGS)
+
